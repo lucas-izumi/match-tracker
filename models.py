@@ -20,6 +20,18 @@ class Match(db.Model):
     hero_id = db.Column(db.Integer, db.ForeignKey("hero.id"))
     opponent_hero_id = db.Column(db.Integer, db.ForeignKey("hero.id"))
 
+    hero = db.relationship(
+        "Hero",
+        foreign_keys=[hero_id],
+        backref="matches_as_hero"
+    )
+
+    opponent_hero = db.relationship(
+        "Hero",
+        foreign_keys=[opponent_hero_id],
+        backref="matches_as_opponent"
+    )
+
     who_started = db.Column(db.String(10))
     winner = db.Column(db.String(10))
 
