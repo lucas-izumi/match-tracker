@@ -14,6 +14,8 @@ from models import db, User, Hero, Match
 # CRIAÇÃO E CONFIGURAÇÃO DO APP
 # =========================================================
 app = Flask(__name__)
+# SECRET KEY (produção)
+app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-key")
 app.config.from_object(Config)
 
 db.init_app(app)
