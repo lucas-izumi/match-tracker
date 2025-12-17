@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Estatísticas</h3>
+
+<p>
+<b>Total:</b> {{ total_matches }} |
+<b>Vitórias:</b> {{ wins }} |
+<b>Derrotas:</b> {{ losses }} |
+<b>Win Rate:</b> {{ win_rate }}%
+</p>
+
+<hr>
+
+<h5>Win Rate por Herói</h5>
+<canvas id="heroChart"></canvas>
+
+<hr>
+
+<h5>Matchups vs Oponentes</h5>
+<canvas id="opponentChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const heroLabels = {{ hero_stats | map(attribute=0) | list | tojson }};
+const heroTotals = {{ hero_stats | map(attribute=1) | list | tojson }};
+const heroWins = {{ hero_stats | map(attribute=2) | list | tojson }};
+const heroRates = heroTotals.map((t, i) => t ? (heroWins[i] / t * 100).toFixed(2) : 0);
+
+new Chart(document.getElementById('heroChart'), {
+    type: 'bar',
+    data: {
+        labels: heroLabels,
+        datasets: [{
+            label: 'Win Rate (%)',
+            data: heroRates
+        }]
+    }
+});
+
+const oppLabels = {{ opponent_stats | map(attribute=0) | list | tojson }};
+const oppTotals = {{ opponent_stats | map(attribute=1) | list | tojson }};
+const oppWins = {{ opponent_stats | map(attribute=2) | list | tojson }};
+const oppRates = oppTotals.map((t, i) => t ? (oppWins[i] / t * 100).toFixed(2) : 0);
+
+new Chart(document.getElementById('opponentChart'), {
+    type: 'bar',
+    data: {
+        labels: oppLabels,
+        datasets: [{
+            label: 'Win Rate vs Oponente (%)',
+            data: oppRates
+        }]
+    }
+});
+</script>
+
+<a href="{{ url_for('matches') }}" class="btn btn-secondary mt-3">Voltar</a>
+
+{% endblock %}

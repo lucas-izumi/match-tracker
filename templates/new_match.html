@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Nova Partida</h3>
+<form method="post">
+
+<label>Herói</label>
+<select name="hero" class="form-control mb-2">
+{% for h in heroes %}
+<option value="{{ h.id }}" {% if default_hero and h.id == default_hero.id %}selected{% endif %}>
+    {{ h.name }}
+</option>
+{% endfor %}
+</select>
+
+<label>Herói Oponente</label>
+<select name="opponent" class="form-control mb-2">
+{% for h in heroes %}
+<option value="{{ h.id }}">{{ h.name }}</option>
+{% endfor %}
+</select>
+
+<label>Quem começou</label><br>
+<input type="radio" name="who_started" value="first"> Primeiro
+<input type="radio" name="who_started" value="second"> Segundo
+<br><br>
+
+<label>Resultado</label><br>
+<input type="radio" name="winner" value="me"> Eu venci
+<input type="radio" name="winner" value="opponent"> Oponente venceu
+<br><br>
+
+<textarea name="sideboard" class="form-control mb-2" placeholder="Sideboard"></textarea>
+<textarea name="comments" class="form-control mb-2" placeholder="Comentários"></textarea>
+
+<button class="btn btn-primary">Salvar</button>
+</form>
+{% endblock %}

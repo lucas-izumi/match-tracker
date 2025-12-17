@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Flesh and Blood - Minhas Partidas</h3>
+<a class="btn btn-success mb-3" href="{{ url_for('new_match') }}">Nova Partida</a>
+<a class="btn btn-info mb-3" href="{{ url_for('stats') }}">Ver Estatísticas</a>
+
+<ul class="list-group">
+{% for m in matches %}
+<li class="list-group-item">
+    {{ m.created_at }} - Resultado: {{ m.winner }}
+</li>
+{% endfor %}
+</ul>
+{% endblock %}
