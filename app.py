@@ -215,26 +215,7 @@ def stats():
         hero_stats=hero_stats,
         opponent_stats=opponent_stats
     )
-
-@app.route("/admin/heroes", methods=["GET"])
-def admin_heroes():
-    conn = sqlite3.connect(DB_PATH)
-    heroes = conn.execute("SELECT * FROM Hero ORDER BY name").fetchall()
-    conn.close()
-
-    return render_template("admin_heroes.html", heroes=heroes)
-
-@app.route("/admin/heroes/add", methods=["POST"])
-def add_hero():
-    name = request.form["name"]
-
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("INSERT INTO Hero (name) VALUES (?)", (name,))
-    conn.commit()
-    conn.close()
-
-    return redirect(url_for("admin_heroes"))
-
+    
 # =========================================================
 # START DO SERVIDOR
 # =========================================================
