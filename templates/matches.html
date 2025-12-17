@@ -7,17 +7,18 @@
 <ul class="list-group">
 {% for m in matches %}
 <li class="list-group-item">
-    {{ m.created_at }} - Resultado: {{ m.winner }}
+    {{ m.created_at }} - Resultado:
     <td>
     {% if m.winner == "me" %}
         <span class="badge bg-success fs-6">
-            VICTORY <span class="fw-normal">vs {{ m.name }}</span>
+            VICTORY <span class="fw-normal">vs {{ m.opponent_hero_id }}</span>
         </span>
     {% else %}
         <span class="badge bg-danger fs-6">
-            DEFEAT <span class="fw-normal">vs {{ m.name }}</span>
+            DEFEAT <span class="fw-normal">vs {{ m.opponent_hero_id }}</span>
         </span>
     {% endif %}
+        <br>Sideboard: {{ m.sideboard }}
 </td>
 </li>
 {% endfor %}
