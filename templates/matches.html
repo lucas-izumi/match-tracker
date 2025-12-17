@@ -9,13 +9,13 @@
 <li class="list-group-item">
     {{ m.created_at }} - Resultado: {{ m.winner }}
     <td>
-    {% if m.winner == "Eu venci" %}
+    {% if m.winner == "me" %}
         <span class="badge bg-success fs-6">
-            VICTORY <span class="fw-normal">vs {{ m.opponent }}</span>
+            VICTORY <span class="fw-normal">vs {{ m.name }}</span>
         </span>
     {% else %}
         <span class="badge bg-danger fs-6">
-            DEFEAT <span class="fw-normal">vs {{ m.opponent }}</span>
+            DEFEAT <span class="fw-normal">vs {{ m.name }}</span>
         </span>
     {% endif %}
 </td>
